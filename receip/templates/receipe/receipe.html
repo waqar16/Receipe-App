@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block start %}
+{% load static %}
+<div class="container">
+    <form class="container form-container" method="post" enctype="multipart/form-data">
+      <h1><strong>Create Your Receipe</strong></h1>
+    {% csrf_token %}
+        <div class="form-group">
+          <label>Receipe Name</label>
+          <input name="receipe_name" type="text" required class="form-control" placeholder="Receipe Name">
+        </div>
+        <div class="form-group mb-3">
+          <label>Receipe Description</label>
+          <textarea name="receipe_description" required class="form-control"placeholder="Description"></textarea>
+        </div>
+        <div class="form-group">
+        <label for="imageUpload">Choose an image:</label>
+        <input name="receipe_image" type="file" id="imageUpload" name="image" accept="image/*">
+          </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </form>
+
+      <form class="form-inline container form-container">
+        <input class="form-control mr-sm-2" name="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+      </form>
+
+      <table class="table table-dark table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">S.NO</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Image</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for receipe in queryset %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{receipe.receipe_name}}</td>
+                <td>{{receipe.receipe_decription}}</td>            
+                <td>
+                  {% if receipe.receipe_image and receipe.receipe_image.url %}
+                  <img src="{{ receipe.receipe_image.url }}" alt="User Image" class="img-fluid">
+              {% else %}
+                  <!-- Display a placeholder or alternative content when no image is available -->
+                  No Image
+              {% endif %}
+                </td>
+                <td><a href="{% url 'delete_item' id=receipe.id %}" class="btn btn-danger">Delete</a>
+                  <a href="{% url 'update_item' id=receipe.id %}" class="btn btn-success">Update</a></td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+      
+</div>
+{% endblock %}
