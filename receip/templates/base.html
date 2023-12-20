@@ -1,35 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title>Receipe Application</title>
     <style>
-        .form-container{
+
+        .authentication{
+            text-decoration: none;
+            margin-right: 12px;
+            color: white;
+        }
+
+        .but1{
+          width: 80px;
+          margin-right: 15px;
+          
+        }
+        .but2{
+          width: 80px;
+        }
+        .form-container {
             margin-top: 20px;
             width: 50%;
         }
+        .form-container2 {
+            margin-top: 20px;
+        }
 
-        h1{
+        h1 {
             margin-bottom: 19px;
         }
-        label{
+
+        label {
             font-size: 16px;
         }
 
-        img{
+        img {
             height: 100px;
             width: 100px;
         }
     </style>
 </head>
+
 <body>
-    
+
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="{% url 'receipe' %}">Receipes Hub</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="{% url 'receipe' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <!-- <li class="nav-item">
+                  <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Pricing</a>
+                </li> -->
+              </ul>
+              {% if request.user.is_authenticated %}
+              <a class="but1 authentication" href="{% url 'logout' %}">Logout</a>
+              <a class="authentication" href="{% url 'account_deletion' %}">Delete Account</a>
+              {% else %}
+              <a class="authentication" href="{% url 'login' %}">Login</a>
+              <a class="authentication" href="{% url 'signup' %}">Signup</a>
+              {% endif %}
+            </div>
+          </nav>
+    </div>
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+
+
     {% block start %}
 
     {% endblock %}
 </body>
+
 </html>

@@ -24,7 +24,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', receip_view, name='receipe'),
     path('delete/<int:id>', delete_item, name='delete_item'),
-    path('update/<int:id>', update_item, name='update_item')
+    path('update/<int:id>', update_item, name='update_item'),
+    path('login', login_logic, name='login'),
+    path('signup', signup, name='signup'),
+    path('logout', log_out, name='logout'),
+    path('account-deletion', account_deletion, name='account_deletion'),
+    path('delete_account/<str:username>/', delete_account, name='delete_account'),
 ]
 
 if settings.DEBUG:

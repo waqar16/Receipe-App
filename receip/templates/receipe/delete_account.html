@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block start %}
+{% load static %}
+<div class="container">
+    <form class="container form-container" method="post" enctype="multipart/form-data">
+        <p>Are you sure you want to delete your account?</p>
+      <a href="{% url 'delete_account' username=request.user.username %}" class=" but1 authentication btn btn-primary">Yes</a>
+      <a href="{% url 'receipe' %}" class=" but1 authentication btn btn-danger">No</a>
+      </form>
+</div>
+{% endblock %}
